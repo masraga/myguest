@@ -9,6 +9,8 @@ class VisitorCard extends Model
 {
     use HasFactory;
     
+    protected $table = "visitor_cards";
+
     protected $fillable = [
         "card_id",
         "face",
@@ -17,4 +19,8 @@ class VisitorCard extends Model
         "is_exit",
         "receiptionist_id"
     ];
+
+    public function visitor() {
+        return $this->hasMany('App\Models\Visitor');
+    }
 }

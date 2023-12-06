@@ -21,3 +21,4 @@ Route::get('/', function () {
 
 Route::get('/qr/generate', [SettingController::class, "generateQrView"]);
 Route::get('/auth-visitor', [VisitorController::class, "faceValidator"]);
+Route::get('/generate-visitor-card', [VisitorController::class, "generateCard"]);

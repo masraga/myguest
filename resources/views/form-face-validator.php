@@ -25,6 +25,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
 <script type="text/javascript">
     // seleksi elemen video
     var video = document.querySelector("#video-webcam");
@@ -88,16 +89,26 @@
     }
 
     async function uploadToAdmin(face) {
-        var qs = new URLSearchParams(window.location.search);
-        const token = qs.get("token");
-        var formData = new FormData();
-        formData.append("token", token);
-        formData.append("face", face);
-
         try{
-            const upload = await axios.post("/api/visitor/face-validator", formData)
-            alert(upload.data.msg);
-            window.location.reload();
+            const socket = io("http://localhost:3000");
+            socket.on("connect", async () => {
+                console.log("connect");
+                var qs = new URLSearchParams(window.location.search);
+                const token = qs.get("token");
+                var formData = new FormData();
+                formData.append("token", token);
+                formData.append("face", face);
+
+                const upload = await axios.post("/api/visitor/face-validator", formData)
+                socket.emit("send-face", JSON.stringify({
+                    face: upload.data.face, 
+                    code : upload.data.code,
+                    admin : upload.data.admin
+                }));
+                
+                alert(upload.data.msg);
+                window.location.reload();
+            })
         }
         catch(e) {
             alert("terjadi kesalahan saat mengirim foto")

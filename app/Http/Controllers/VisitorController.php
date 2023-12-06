@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\VisitorCard;
+use App\Models\Visitor;
 
 class VisitorController extends Controller
 {
@@ -42,6 +43,17 @@ class VisitorController extends Controller
             "receiptionist_id" => $receiptionist_id
         ]);
 
-        return response(["msg" => "kode visitor {$visitorCode}, silahkan konfirmasi keadmin", "is_error" => true, "code" => $visitorCode]);
+        return response([
+            "msg" => "kode visitor {$visitorCode}, silahkan konfirmasi keadmin", 
+            "is_error" => false, 
+            "code" => $visitorCode,
+            "face" => $path,
+            "admin" => $receiptionist
+        ]);
+    }
+
+    public function generateCard(Request $request) {
+        $visitor = Visitor::with(["visitorCard", "guest"])->first();
+        return view("visitor-card-generator", ["visitor" => $visitor]);
     }
 }

@@ -7,5 +7,6 @@
     >
         Cetak qrcode komputer
     </x-filament::button>
+    @livewire('FormFaceApproval')
   </div>
 </x-filament-panels::page>
