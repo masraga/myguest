@@ -58,6 +58,6 @@
         window.onafterprint = back;
 
         function back() {
-            window.location = "/admin";
+            window.location = "/admin/visitors";
         }
     </script>
