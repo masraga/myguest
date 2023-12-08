@@ -18,6 +18,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -43,8 +44,8 @@ class VisitorResource extends Resource
             Fieldset::make('Kartu Visitor')
             ->relationship('visitorCard')
             ->schema([
-                TextInput::make('card_id')->label("ID kartu"),
-                TextInput::make('created_at')->label("tanggal masuk"),
+                TextInput::make('card_id')->label("ID kartu")->disabled(),
+                DateTimePicker::make('created_at')->label("tanggal masuk"),
                 Toggle::make('is_approve')->onColor('success')->offColor('danger')->label("terima tamu ?"),
                 Toggle::make('is_exit')->onColor('success')->offColor('danger')->label("tamu keluar ?")
             ])
@@ -107,6 +108,17 @@ class VisitorResource extends Resource
             'index' => Pages\Visitor::route('/'),
             'create' => Pages\CreateVisitor::route('/create'),
             'edit' => Pages\EditVisitor::route('/{record}/edit'),
+        ];
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            Action::make('saveAnother')
+                ->label('Save & create another')
+                ->action('saveAnother')
+                ->keyBindings(['mod+shift+s'])
+                ->color('secondary'),
         ];
     }
     
