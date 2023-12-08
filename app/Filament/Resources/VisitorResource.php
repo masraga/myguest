@@ -14,6 +14,13 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Concerns\InteractsWithForms;
 
 class VisitorResource extends Resource
 {
@@ -26,9 +33,22 @@ class VisitorResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+        ->schema([
+            Fieldset::make('data tamu')
+            ->relationship('guest')
             ->schema([
-                //
-            ]);
+                TextInput::make('id_card')->label("Kartu Identitas"),
+                TextInput::make('name')->label("nama"),
+            ]),
+            Fieldset::make('Kartu Visitor')
+            ->relationship('visitorCard')
+            ->schema([
+                TextInput::make('card_id')->label("ID kartu"),
+                TextInput::make('created_at')->label("tanggal masuk"),
+                Toggle::make('is_approve')->onColor('success')->offColor('danger')->label("terima tamu ?"),
+                Toggle::make('is_exit')->onColor('success')->offColor('danger')->label("tamu keluar ?")
+            ])
+        ]); 
     }
 
     public static function table(Table $table): Table
@@ -53,7 +73,12 @@ class VisitorResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->form([
+                    TextInput::make('guest.id_card')
+                        ->required()
+                        ->maxLength(255),
+                    // ...
+                ]),
                 Tables\Actions\DeleteAction::make(),
                 ])
                 ->bulkActions([

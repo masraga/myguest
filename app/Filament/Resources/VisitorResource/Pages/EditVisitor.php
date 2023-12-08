@@ -10,10 +10,5 @@ class EditVisitor extends EditRecord
 {
     protected static string $resource = VisitorResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
+    protected static string $view = 'filament.resources.visitor-resource.pages.edit-visitor';
 }
