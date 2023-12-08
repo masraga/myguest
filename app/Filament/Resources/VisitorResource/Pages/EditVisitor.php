@@ -8,6 +8,8 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Notifications\Notification;
 use Filament\Actions\EditAction;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Setting;
+use App\Models\Guest;
 
 class EditVisitor extends EditRecord
 {
@@ -26,9 +28,17 @@ class EditVisitor extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $vcard = $record::with("visitorCard")->first()->visitorCard;
-        
         $record->update($data);
+        $guest = $record->guest;
+        $vcard = $record->visitorCard;
+        
+        if($vcard->is_approve) {
+            Setting::sendVisitorApproveMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
+        }
+        if($vcard->is_exit) {
+            Setting::sendVisitorExitMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
+        }
+
         return $record;
     }
 

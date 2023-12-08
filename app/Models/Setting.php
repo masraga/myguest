@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Whatsapp;
 
 class Setting extends Model
 {
@@ -16,52 +17,28 @@ class Setting extends Model
     /**
      * request 
      * visitorName : nama visitor
+     * phone : hp visitor
     */
-    public static function send_admin_approve_msg(array $request = []) {
-        $visitorName = $request["visitor_name"];
+    public static function sendVisitorApproveMsg(array $request = []) {
+        $visitorName = $request["visitorName"];
+        $phone = $request["phone"];
         $admin = auth()->user()->name;
+        $msg = "Halo {$visitorName} anda sudah diapprove, silahkan masuk kedalam ruangan";
 
-        return "
-            Halo, ada tamu atas nama {$visitorName} ingin bertemu dengan anda. thanks :)
-        ";
+        return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
     }
 
     /**
      * request 
      * visitorName : nama visitor
+     * phone : hp visitor
     */
-    public static function send_admin_exit_msg(array $request = []) {
-        $visitorName = $request["visitor_name"];
+    public static function sendVisitorExitMsg(array $request = []) {
+        $visitorName = $request["visitorName"];
+        $phone = $request["phone"];
         $admin = auth()->user()->name;
+        $msg = "Halo {$visitorName} anda berhasil keluar, terimakasih telah berkunjung";
 
-        return "
-            Halo, tamu atas nama {$visitorName} sudah keluar dari kantor. thanks :)
-        ";
-    }
-
-    /**
-     * request 
-     * visitorName : nama visitor
-    */
-    public static function send_visitor_approve_msg(array $request = []) {
-        $visitorName = $request["visitor_name"];
-        $admin = auth()->user()->name;
-
-        return "
-            Halo {$visitorName} anda sudah diapprove, jangan lupa bawa kartunya masuk ya
-        ";
-    }
-
-    /**
-     * request 
-     * visitorName : nama visitor
-    */
-    public static function send_visitor_exit_msg(array $request = []) {
-        $visitorName = $request["visitor_name"];
-        $admin = auth()->user()->name;
-
-        return "
-            Halo {$visitorName} anda sudah keluar kantor terimakasih kunjungannya :)
-        ";
+        return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
     }
 }
