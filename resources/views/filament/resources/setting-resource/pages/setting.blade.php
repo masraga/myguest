@@ -9,4 +9,5 @@
     </x-filament::button>
     @livewire('FormFaceApproval')
   </div>
+  {{$this->table}}
 </x-filament-panels::page>

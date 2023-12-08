@@ -26,8 +26,9 @@ class EditVisitor extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $record->update($data);
+        $vcard = $record::with("visitorCard")->first()->visitorCard;
         
+        $record->update($data);
         return $record;
     }
 

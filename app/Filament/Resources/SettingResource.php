@@ -7,9 +7,11 @@ use App\Filament\Resources\SettingResource\RelationManagers;
 use App\Models\Setting;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -27,7 +29,7 @@ class SettingResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("wa_token")->label("token whatsapp")
             ]);
     }
 
@@ -35,7 +37,8 @@ class SettingResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('wa_token')
+                ->label("Token wa"),
             ])
             ->filters([
                 //

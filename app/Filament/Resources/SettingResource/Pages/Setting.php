@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\SettingResource\Pages;
 
 use App\Filament\Resources\SettingResource;
-use Filament\Resources\Pages\Page;
+use Filament\Resources\Pages\ListRecords;
 
-class Setting extends Page
+class Setting extends ListRecords
 {
     protected static string $resource = SettingResource::class;
 
