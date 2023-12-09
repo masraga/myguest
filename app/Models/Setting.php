@@ -11,7 +11,8 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        "wa_token"
+        "wa_token",
+        "admin_phone",
     ];
 
     /**
@@ -38,6 +39,37 @@ class Setting extends Model
         $phone = $request["phone"];
         $admin = auth()->user()->name;
         $msg = "Halo {$visitorName} anda berhasil keluar, terimakasih telah berkunjung";
+
+        return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
+    }
+
+    /**
+     * request 
+     * visitorName : nama visitor
+     * phone : hp admin
+    */
+    public static function sendAdminApproveMsg(array $request = []) {
+        $setting = self::first();
+        $visitorName = $request["visitorName"];
+        $description = $request["description"];
+        $phone = $setting->admin_phone;
+        $admin = auth()->user()->name;
+        $msg = "Halo tamu {$visitorName} ingin menemui anda dengan keperluan {$description}";
+
+        return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
+    }
+
+    /**
+     * request 
+     * visitorName : nama visitor
+     * phone : hp visitor
+    */
+    public static function sendAdminExitMsg(array $request = []) {
+        $setting = self::first();
+        $visitorName = $request["visitorName"];
+        $phone = $setting->admin_phone;
+        $admin = auth()->user()->name;
+        $msg = "Halo, {$visitorName} berhasil keluar dari ruangan";
 
         return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
     }

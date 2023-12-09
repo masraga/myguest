@@ -33,10 +33,21 @@ class EditVisitor extends EditRecord
         $vcard = $record->visitorCard;
         
         if($vcard->is_approve) {
-            Setting::sendVisitorApproveMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
+            Setting::sendVisitorApproveMsg([
+                "visitorName" => $guest->name, 
+                "phone" => $guest->phone,
+                "description" => $guest->description
+            ]);
+
+            // Setting::sendAdminApproveMsg([
+            //     "visitorName" => $guest->name, 
+            //     "phone" => $guest->phone,
+            //     "description" => $guest->description
+            // ]);
         }
         if($vcard->is_exit) {
             Setting::sendVisitorExitMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
+            // Setting::sendAdminExitMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
         }
 
         return $record;

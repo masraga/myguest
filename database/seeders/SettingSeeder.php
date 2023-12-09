@@ -14,7 +14,8 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-            "wa_token" => "set wa token here"
+            "wa_token" => "set wa token here",
+            "admin_phone" => "set admin phone here",
         ]);
     }
 }

@@ -29,7 +29,8 @@ class SettingResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make("wa_token")->label("token whatsapp")
+                TextInput::make("wa_token")->label("token whatsapp"),
+                TextInput::make("admin_phone")->label("whatsapp admin"),
             ]);
     }
 
@@ -39,6 +40,8 @@ class SettingResource extends Resource
             ->columns([
                 TextColumn::make('wa_token')
                 ->label("Token wa"),
+                TextColumn::make('admin_phone')
+                ->label("Whatsapp admin"),
             ])
             ->filters([
                 //

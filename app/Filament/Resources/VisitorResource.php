@@ -40,6 +40,7 @@ class VisitorResource extends Resource
             ->schema([
                 TextInput::make('id_card')->label("Kartu Identitas"),
                 TextInput::make('name')->label("nama"),
+                TextArea::make('description')->label("keperluan"),
             ]),
             Fieldset::make('Kartu Visitor')
             ->relationship('visitorCard')
