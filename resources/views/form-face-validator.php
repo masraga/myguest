@@ -25,7 +25,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.4/socket.io.js" integrity="sha512-MVIvu+RrRZ8i4gxYMF/87ww/ErVLaW+O1lMHUpNTn0lW5NVXhxALXkQ1vnQbzpalm5eXVhzSmF7Rzf7JVoBhTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     // seleksi elemen video
     var video = document.querySelector("#video-webcam");
@@ -90,7 +90,16 @@
 
     async function uploadToAdmin(face) {
         try{
-            const socket = io("http://localhost:3000");
+            const socket = io("https://ws.kokasir.cloud", {
+                secure: true, 
+                reconnect: true, 
+                rejectUnauthorized: true,
+                transports: ["websocket"],
+                reconnectionAttempts: 30,
+                reconnectionDelay: 2000,
+                reconnection: true,
+            });
+            console.log(socket);
             socket.on("connect", async () => {
                 console.log("connect");
                 var qs = new URLSearchParams(window.location.search);
