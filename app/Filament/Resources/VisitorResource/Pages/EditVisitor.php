@@ -19,10 +19,16 @@ class EditVisitor extends EditRecord
 
     protected function getFormActions(): array
     {
+        $vcardId = $this->form->model->visitor_card_id;
         return [
             EditAction::make('save')
-                ->label(__('filament-panels::resources/pages/edit-record.form.actions.save.label'))
-                ->submit('save')
+            ->label("simpan")
+            ->submit('save'),
+
+            Action::make('cetak kartu')
+            ->url("/generate-visitor-card?visitorCard={$vcardId}")
+            ->openUrlInNewTab()
+            ->color("success")
         ];
     }
 

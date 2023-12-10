@@ -53,7 +53,9 @@ class VisitorController extends Controller
     }
 
     public function generateCard(Request $request) {
-        $visitor = Visitor::with(["visitorCard", "guest"])->first();
+        $visitor = Visitor::with(["visitorCard", "guest"])
+        ->where(["visitor_card_id" => $request["visitorCard"]])
+        ->first();
         return view("visitor-card-generator", ["visitor" => $visitor]);
     }
 }

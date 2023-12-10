@@ -40,6 +40,7 @@ class VisitorResource extends Resource
             ->schema([
                 TextInput::make('id_card')->label("Kartu Identitas"),
                 TextInput::make('name')->label("nama"),
+                TextInput::make('phone')->label("telepon"),
                 TextArea::make('description')->label("keperluan"),
             ]),
             Fieldset::make('Kartu Visitor')
@@ -61,6 +62,8 @@ class VisitorResource extends Resource
                 ->label("Kartu Identitas"),
                 TextColumn::make('guest.name')
                 ->label("Nama"),
+                TextColumn::make('guest.phone')
+                ->label("Telepon"),
                 TextColumn::make('created_at')
                 ->label("Tanggal masuk")
                 ->formatStateUsing(fn (string $state): string => date("d-m-Y H:i:s", strtotime($state))),
