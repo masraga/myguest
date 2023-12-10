@@ -76,6 +76,10 @@ class FormFaceApproval extends Component implements HasForms
         $this->dispatch('open-modal', id: 'face-detector');
     }
 
+    public function rejectGuest() {
+        $this->dispatch('close-modal', id: 'face-detector');
+    }
+
     public function addGuest() {
         $this->dispatch('close-modal', id: 'face-detector');
         $this->dispatch('open-modal', id: 'form-guest');

@@ -23,7 +23,7 @@
         </div>
         <x-slot name="footer">
             <x-filament::button wire:click="addGuest">Terima</x-filament::button>
-            <x-filament::button color="gray">Tolak</x-filament::button>
+            <x-filament::button wire:click="rejectGuest" color="gray">Tolak</x-filament::button>
         </x-slot>
     </x-filament::modal>
 
@@ -39,7 +39,7 @@
         reconnectionDelay: 2000,
         reconnection: true,
     });
-    console.log(socket);
+
     const baseUrl = '{{ URL::asset('') }}';
     socket.on("connect", () => {
         socket.on("show-face", (data) => {
