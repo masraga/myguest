@@ -24,7 +24,7 @@ class Setting extends Model
         $visitorName = $request["visitorName"];
         $phone = $request["phone"];
         $admin = auth()->user()->name;
-        $msg = "Halo {$visitorName} anda sudah diapprove, silahkan masuk kedalam ruangan";
+        $msg = "Hi {$visitorName}, Anda sudah terverifikasi, silahkan masuk kedalam ruangan";
 
         return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
     }
@@ -38,7 +38,7 @@ class Setting extends Model
         $visitorName = $request["visitorName"];
         $phone = $request["phone"];
         $admin = auth()->user()->name;
-        $msg = "Halo {$visitorName} anda berhasil keluar, terimakasih telah berkunjung";
+        $msg = "Hi {$visitorName}, Anda berhasil keluar. Terima kasih telah berkunjung";
 
         return Whatsapp::sendMessage(["phone" => $phone, "msg" => $msg]);
     }
