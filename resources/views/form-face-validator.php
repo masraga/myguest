@@ -99,10 +99,10 @@
 
     async function uploadToAdmin(face) {
         try{
-            const socket = io("https://ws.kokasir.cloud", {
-                secure: true, 
-                reconnect: true, 
-                rejectUnauthorized: true,
+            const socket = io(":3000", {
+                secure: false, 
+                reconnect: false, 
+                rejectUnauthorized: false,
                 transports: ["websocket"],
                 reconnectionAttempts: 30,
                 reconnectionDelay: 2000,

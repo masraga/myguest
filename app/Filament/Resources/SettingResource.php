@@ -29,7 +29,7 @@ class SettingResource extends Resource
     {
         return $form
             ->schema([
-                // TextInput::make("wa_token")->label("token whatsapp"),
+                TextInput::make("wa_token")->label("token whatsapp"),
                 TextInput::make("admin_phone")->label("whatsapp admin"),
             ]);
     }
@@ -38,8 +38,8 @@ class SettingResource extends Resource
     {
         return $table
             ->columns([
-                // TextColumn::make('wa_token')
-                // ->label("Token wa"),
+                TextColumn::make('wa_token')
+                ->label("Token wa"),
                 TextColumn::make('admin_phone')
                 ->label("Whatsapp admin"),
             ])
@@ -67,8 +67,8 @@ class SettingResource extends Resource
     {
         return [
             'index' => Pages\Setting::route('/'),
-            // 'create' => Pages\CreateSetting::route('/create'),
-            // 'edit' => Pages\EditSetting::route('/{record}/edit'),
+            'create' => Pages\CreateSetting::route('/create'),
+            'edit' => Pages\EditSetting::route('/{record}/edit'),
         ];
     }
 }
