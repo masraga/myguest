@@ -53,7 +53,7 @@ class EditVisitor extends EditRecord
         }
         if($vcard->is_exit) {
             Setting::sendVisitorExitMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
-            // Setting::sendAdminExitMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
+            Setting::sendAdminExitMsg(["visitorName" => $guest->name, "phone" => $guest->phone]);
         }
 
         return $record;

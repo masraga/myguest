@@ -20,7 +20,7 @@
       height: 400,
       colorDark : "#000000",
       colorLight : "#ffffff",
-      correctLevel : QRCode.CorrectLevel.H
+      correctLevel : QRCode.CorrectLevel.L
   });
   qrcode.clear(); // clear the code.
   qrcode.makeCode(token); // make another code.
